@@ -1,0 +1,20 @@
+// @version=5
+indicator("[ICT] Swing Points", overlay = true)
+lookback = input.int(5, title = "LB", tooltip = "Bar range")
+low_current = low[lookback]
+high_current = high[lookback]
+
+// current bar higher than previous highest bar
+SH = high_current > ta.highest(high_current[1], lookback)
+// current bar lower than previous lowest bar
+SL = low_current < ta.lowest(low_current[1], lookback)
+
+// current bar higher than after highest bar
+SH2 = high_current > ta.highest(high, lookback)
+// current bar lower than after lowest bar
+SL2 = low_current < ta.lowest(low, lookback)
+
+// SH
+plotshape(SH and SH2, color=color.green, style = shape.circle, location = location.abovebar, offset = -lookback)
+// SL
+plotshape(SL and SL2, color=color.red, style = shape.square, location = location.belowbar, offset = -lookback)
